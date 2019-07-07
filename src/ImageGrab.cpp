@@ -31,6 +31,8 @@ struct ImgSave
         std::string save_file_path;
         std::string left_topic;
         std::string right_topic;
+        int image_width;
+        int image_height;
 };
 
 int main(int argc, char** argv)
@@ -41,11 +43,14 @@ int main(int argc, char** argv)
 
     ImgSave StereoImgSave;
     ImgSave *p = &StereoImgSave;
-
     ros::param::get("~save_file_path", p->save_file_path);
     ros::param::get("~left_topic", p->left_topic);
     ros::param::get("~right_topic", p->right_topic);
-    
+    ros::param::get("~image_width", p->image_width);
+    ros::param::get("~image_height", p->image_height);
+    // nh.param("image_width", w,640);
+    // nh.param("image_height", h,360);
+
     p->outfile_.open(p->save_file_path + "timestamp.txt");
     
     std::cout<<"Here!!"<<std::endl;
@@ -101,8 +106,8 @@ void ImgSave::StereoImageSave(const cv::Mat &ImgLeft, const cv::Mat &ImgRight, c
     cv::cvtColor(leftImg,leftImg,CV_RGBA2GRAY);
     cv::cvtColor(rightImg,rightImg,CV_RGBA2GRAY);//zed的图片是4通道RGBA
 
-    cv::resize(leftImg,leftImg,cv::Size(640,360),0,0);
-    cv::resize(rightImg,rightImg,cv::Size(640,360),0,0);
+    cv::resize(leftImg,leftImg,cv::Size(ImgSave::image_width,ImgSave::image_height),0,0);
+    cv::resize(rightImg,rightImg,cv::Size(ImgSave::image_width,ImgSave::image_height),0,0);
 
     std::cout<<"ImageSize: "<<rightImg.size()<<std::endl;
      

@@ -1,0 +1,8 @@
+prefix=/home/happenzj/catkin_ws/src/ImageGrab/build/devel
+
+Name: imagegrab
+Description: Description of imagegrab
+Version: 0.1.0
+Cflags: 
+Libs: -L/home/happenzj/catkin_ws/src/ImageGrab/build/devel/lib 
+Requires: roscpp std_msgs sensor_msgs topic_tools tf

@@ -1,0 +1,9 @@
+<launch>
+
+  <node pkg="imagegrab" name="imagegrab" type="ImageGrab" output="screen">
+    <param name="save_file_path" type="string" value="/home/happenzj/catkin_ws/src/stereoVO-master/data/sequence/" />
+    <param name="left_topic" type="string" value="/camera/left/image_raw" />
+    <param name="right_topic" type="string" value="/camera/right/image_raw" />
+  </node>
+
+</launch>

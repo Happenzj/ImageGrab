@@ -1,0 +1,17 @@
+%YAML:1.0
+
+#the path you want to save the images and timestamp.txt
+save_path: /home/happenzj/catkin_ws/src/stereoVO-master/data/sequence
+
+#camera`s type : monocular = 1   Stereo = 2;
+camera_type: 2   
+
+#the resolution of the image 
+image_width: 640
+image_height: 360
+
+#the the topics of the left and right image
+left_image_topic: /camera/left/image_raw
+right_image_topic: /camera/right/image_raw
+
+

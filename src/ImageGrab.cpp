@@ -1,6 +1,6 @@
 #include <fstream>
 #include <boost/timer.hpp>
- #include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgcodecs.hpp>
 #include <ros/ros.h>
 #include <string>
 #include <sstream>
@@ -27,6 +27,10 @@ struct ImgSave
         void StereoImageSave(const cv::Mat &ImgLeft, const cv::Mat &ImgRight, const double &timestamp);
     public:
         std::ofstream outfile_;  
+
+        std::string save_file_path;
+        std::string left_topic;
+        std::string right_topic;
 };
 
 int main(int argc, char** argv)
@@ -38,13 +42,17 @@ int main(int argc, char** argv)
     ImgSave StereoImgSave;
     ImgSave *p = &StereoImgSave;
 
-    p->outfile_.open("/home/happenzj/catkin_ws/src/stereoVO-master/data/sequence/timestamp.txt");
+    ros::param::get("~save_file_path", p->save_file_path);
+    ros::param::get("~left_topic", p->left_topic);
+    ros::param::get("~right_topic", p->right_topic);
+    
+    p->outfile_.open(p->save_file_path + "timestamp.txt");
     
     std::cout<<"Here!!"<<std::endl;
     if (!p->outfile_) std::cout<<"Open file error!"<<std::endl;
     
-    message_filters::Subscriber<sensor_msgs::Image> left_sub(nh, "/camera/left/image_raw", 1);
-    message_filters::Subscriber<sensor_msgs::Image> right_sub(nh, "/camera/right/image_raw", 1);
+    message_filters::Subscriber<sensor_msgs::Image> left_sub(nh, p->left_topic, 1);
+    message_filters::Subscriber<sensor_msgs::Image> right_sub(nh, p->right_topic, 1);
     typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image> sync_pol;
     message_filters::Synchronizer<sync_pol> sync(sync_pol(10), left_sub,right_sub);
     sync.registerCallback(boost::bind(&ImgSave::GrabStereo,p,_1,_2));
@@ -103,6 +111,7 @@ void ImgSave::StereoImageSave(const cv::Mat &ImgLeft, const cv::Mat &ImgRight, c
     std::string ImgName  = std::to_string(SaveTimeStamp);
     
     outfile_<<ImgName<<"\n";
-    cv::imwrite("/home/happenzj/catkin_ws/src/stereoVO-master/data/sequence/image_0/"+ImgName+".png",leftImg);
-    cv::imwrite("/home/happenzj/catkin_ws/src/stereoVO-master/data/sequence/image_1/"+ImgName+".png",rightImg);
+    cv::imwrite(ImgSave::save_file_path+"image_0/"+ImgName+".png",leftImg);
+    cv::imwrite(ImgSave::save_file_path+"image_1/"+ImgName+".png",rightImg);
 }
+

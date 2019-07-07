@@ -1,0 +1,55 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/happenzj/catkin_ws/src/ImageGrab/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_54ee6/fast"
+/usr/bin/make -f CMakeFiles/cmTC_54ee6.dir/build.make CMakeFiles/cmTC_54ee6.dir/build
+make[1]: Entering directory '/home/happenzj/catkin_ws/src/ImageGrab/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_54ee6.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_54ee6.dir/CheckSymbolExists.c.o   -c /home/happenzj/catkin_ws/src/ImageGrab/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_54ee6
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_54ee6.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_54ee6.dir/CheckSymbolExists.c.o  -o cmTC_54ee6 
+CMakeFiles/cmTC_54ee6.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_54ee6.dir/build.make:97: recipe for target 'cmTC_54ee6' failed
+make[1]: *** [cmTC_54ee6] Error 1
+make[1]: Leaving directory '/home/happenzj/catkin_ws/src/ImageGrab/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_54ee6/fast' failed
+make: *** [cmTC_54ee6/fast] Error 2
+
+File /home/happenzj/catkin_ws/src/ImageGrab/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/happenzj/catkin_ws/src/ImageGrab/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_1cd3e/fast"
+/usr/bin/make -f CMakeFiles/cmTC_1cd3e.dir/build.make CMakeFiles/cmTC_1cd3e.dir/build
+make[1]: Entering directory '/home/happenzj/catkin_ws/src/ImageGrab/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_1cd3e.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_1cd3e.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.9/Modules/CheckFunctionExists.c
+Linking C executable cmTC_1cd3e
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1cd3e.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_1cd3e.dir/CheckFunctionExists.c.o  -o cmTC_1cd3e -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_1cd3e.dir/build.make:97: recipe for target 'cmTC_1cd3e' failed
+make[1]: *** [cmTC_1cd3e] Error 1
+make[1]: Leaving directory '/home/happenzj/catkin_ws/src/ImageGrab/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_1cd3e/fast' failed
+make: *** [cmTC_1cd3e/fast] Error 2
+
+

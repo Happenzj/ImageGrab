@@ -53,7 +53,6 @@ int main(int argc, char** argv)
 
     p->outfile_.open(p->save_file_path + "timestamp.txt");
     
-    std::cout<<"Here!!"<<std::endl;
     if (!p->outfile_) std::cout<<"Open file error!"<<std::endl;
     
     message_filters::Subscriber<sensor_msgs::Image> left_sub(nh, p->left_topic, 1);
